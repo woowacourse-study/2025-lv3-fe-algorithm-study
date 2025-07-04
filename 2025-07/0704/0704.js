@@ -26,7 +26,6 @@ function dfs(v) {
   for (let i = 1; i <= n; i++) {
     if (graph[v][i] === 1 && !dfsVisited[i]) {
       dfs(i);
-      break;
     }
   }
 }
