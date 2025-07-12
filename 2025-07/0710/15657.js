@@ -14,6 +14,8 @@ dfs(0);
 console.log(answer.join('\n'));
 
 function dfs(start) {
+  console.log(start);
+  console.log(newArr);
   if (newArr.length === m) {
     answer.push(newArr.join(' '));
     return;
