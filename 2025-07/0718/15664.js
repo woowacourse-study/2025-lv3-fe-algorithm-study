@@ -8,19 +8,25 @@ const array = arr.split(' ').map(Number);
 array.sort((a, b) => a - b);
 
 const newArr = [];
-const answer = [];
+const visited = new Array(n).fill(false);
+const set = new Set([]);
 
-dfs(0);
-console.log(answer.join('\n'));
+dfs();
+set.forEach((v) => console.log(v));
 
-function dfs(start) {
+function dfs(start = 0) {
   if (newArr.length === m) {
-    answer.push(newArr.join(' '));
+    set.add(newArr.join(' '));
     return;
   }
+
   for (let i = start; i < n; i++) {
-    newArr.push(array[i]);
-    dfs(i);
-    newArr.pop();
+    if (!visited[i]) {
+      newArr.push(array[i]);
+      visited[i] = true;
+      dfs(i);
+      visited[i] = false;
+      newArr.pop();
+    }
   }
 }
