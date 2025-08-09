@@ -11,17 +11,20 @@ solution(relation);
 function solution(relation) {
   var answer = 0;
   const newArr = convertArray(relation);
+
   const row = newArr.length;
   const column = newArr[0].length;
 
+  // console.log(row, column);
   let set = new Set();
+  let answerSet = new Set();
   let join = [];
   const visit = new Array(row).fill(false);
 
   dfs();
   function dfs() {
     if (set.size === column) {
-      answer++;
+      answerSet.add(join);
       set = new Set();
       join = [];
       return;
@@ -29,17 +32,21 @@ function solution(relation) {
     for (let i = 0; i < row; i++) {
       if (!visit[i]) {
         visit[i] = true;
-        for (let p = 0; p < column; p++) {
-          join[p] = `${join[p]} ${newArr[i][p]}`;
+        if (join.length === 0) join = newArr[i];
+        else {
+          for (let p = 0; p < column; p++) {
+            join[p] = `${join[p]} ${newArr[i][p]}`;
+          }
         }
         console.log(join);
 
         set = new Set(join);
-        dfs();
+        dfs(i);
+        visit[i] = false;
       }
     }
   }
-  console.log(answer);
+  console.log(answerSet);
   return answer;
 }
 
